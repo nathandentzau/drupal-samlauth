@@ -1,0 +1,9 @@
+name = SAML Authentication
+description = A SAML 2.0 authenication layer for Drupal 7.
+core = 7.x
+package = Web services
+
+dependencies[] = composer_manager
+
+files[] = samlauth.module
+files[] = samlauth.install
