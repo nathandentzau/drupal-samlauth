@@ -1,0 +1,102 @@
+<?php
+
+/**
+ * @file
+ * The installation file for thie SamlAuth module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function samlauth_schema() {
+  return [
+    'samlauth_settings' => [
+      'fields' => [
+        'idp_id' => [
+          'type' => 'serial',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'idp_machine_name' => [
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+        ],
+        'sp_entity_id' => [
+          'type' => 'varchar',
+          'length' => 255,
+        ],
+        'sp_name_id_format' => [
+          'type' => 'varchar',
+          'length' => 255,
+        ],
+        'sp_x509_certificate' => [
+          'type' => 'text',
+        ],
+        'sp_private_key' => [
+          'type' => 'varchar',
+          'length' => 255,
+        ],
+        'idp_entity_id' => [
+          'type' => 'varchar',
+          'length' => 255,
+        ],
+        'idp_single_sign_on_service' => [
+          'type' => 'varchar',
+          'length' => 255,
+        ],
+        'idp_x509_certificate' => [
+          'type' => 'text',
+        ],
+        'map_users' => [
+          'type' => 'int',
+          'default' => 0,
+          'size' => 'small',
+        ],
+        'map_users_email' => [
+          'type' => 'varchar',
+          'length' => 255,
+        ],
+        'create_users' => [
+          'type' => 'int',
+          'default' => 0,
+          'size' => 'small',
+        ],
+        'user_name_attribute' => [
+          'type' => 'varchar',
+          'length' => 255,
+        ],
+        'user_mail_attribute' => [
+          'type' => 'varchar',
+          'length' => 255,
+        ],
+        'security_authn_requests_sign' => [
+          'type' => 'int',
+          'default' => 0,
+          'size' => 'small',
+        ],
+        'security_messages_sign' => [
+          'type' => 'int',
+          'default' => 0,
+          'size' => 'small',
+        ],
+        'security_name_id_sign' => [
+          'type' => 'int',
+          'default' => 0,
+          'size' => 'small',
+        ],
+        'security_signed_assertion' => [
+          'type' => 'int',
+          'default' => 0,
+          'size' => 'small',
+        ],
+        'security_encrypted_assertion' => [
+          'type' => 'int',
+          'default' => 0,
+          'size' => 'small',
+        ],
+      ],
+      'primary key' => ['idp_id'],
+    ],
+  ];
+}
