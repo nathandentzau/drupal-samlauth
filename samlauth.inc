@@ -28,7 +28,7 @@ function samlauth_clean_string($string) {
  *   A formatted URL representing the SP Entity ID.
  */
 function samlauth_entity_id($idp_machine_name) {
-  return url('samlauth/' . $idp_machine_name, ['absolute' => TRUE]);
+  return url('saml/' . $idp_machine_name, ['absolute' => TRUE]);
 }
 
 /**
@@ -375,7 +375,7 @@ function samlauth_subject_name_id_map() {
  * @return string
  */
 function samlauth_url_acs($idp_machine_name) {
-  return url('samlauth/' . $idp_machine_name . '/consume', [
+  return url('saml/' . $idp_machine_name . '/consume', [
     'absolute' => TRUE,
   ]);
 }
@@ -388,7 +388,7 @@ function samlauth_url_acs($idp_machine_name) {
  * @return string
  */
 function samlauth_url_metadata($idp_machine_name) {
-  return url('samlauth/' . $idp_machine_name . '/metadata.xml', [
+  return url('saml/' . $idp_machine_name . '/metadata.xml', [
     'absolute' => TRUE,
   ]);
 }

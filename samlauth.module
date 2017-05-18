@@ -21,7 +21,7 @@ function samlauth_menu() {
       'file' => 'samlauth.admin.inc',
       'type' => MENU_NORMAL_ITEM,
     ],
-    'samlauth/%samlauth/consume' => [
+    'saml/%samlauth/consume' => [
       'title' => 'SAML Assertion Customer Service',
       'description' => 'The endpoint to process the SAML response.',
       'page callback' => 'samlauth_page_acs',
@@ -30,7 +30,7 @@ function samlauth_menu() {
       'file' => 'samlauth.pages.inc',
       'type' => MENU_CALLBACK,
     ],
-    'samlauth/%samlauth/login' => [
+    'saml/%samlauth/login' => [
       'title' => 'SAML Login',
       'description' => 'Sends an AuthnRequest to the Identity Provider.',
       'page callback' => 'samlauth_page_login',
@@ -40,7 +40,7 @@ function samlauth_menu() {
       'file' => 'samlauth.pages.inc',
       'type' => MENU_CALLBACK,
     ],
-    'samlauth/%samlauth/metadata.xml' => [
+    'saml/%samlauth/metadata.xml' => [
       'title' => 'SAML Metadata',
       'description' => 'The metadata for the Service Provider.',
       'page callback' => 'samlauth_page_metadata',
