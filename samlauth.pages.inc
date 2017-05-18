@@ -7,7 +7,7 @@
 
 /**
  * Callback: samlauth_menu().
- * Route: samlauth/%samlauth/consume
+ * Route: saml/%samlauth/consume
  *
  * The Assertion Consumer Service to process the SAML Response from the
  * Identity Provider. Users are redirected from this page.
@@ -53,7 +53,7 @@ function samlauth_page_acs($idp_machine_name) {
 
 /**
  * Callback: samlauth_menu().
- * Route: samlauth/%samlauth/login
+ * Route: saml/%samlauth/login
  *
  * This page initiates an AuthnRequest to the Identity Provider. All users are
  * redirected from this page.
@@ -75,7 +75,7 @@ function samlauth_page_login($idp_machine_name) {
 
 /**
  * Callback: samlauth_menu().
- * Route: samlauth/%samlauth/metadata.xml
+ * Route: saml/%samlauth/metadata.xml
  *
  * This page outputs the Service Provider metadata in XML.
  *
