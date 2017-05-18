@@ -1,0 +1,111 @@
+<?php
+
+/**
+ * @file
+ * A SAML Authenication layer for Drupal.
+ */
+
+define('SAMLAUTH_REQUEST_ID', 'samlauth_request_id');
+
+/**
+ * Implements hook_menu().
+ */
+function samlauth_menu() {
+  return [
+    'admin/config/services/samlauth' => [
+      'title' => 'SAML Authentication',
+      'description' => 'Manage settings for the SAML 2.0 authentication layer.',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => ['samlauth_admin_settings'],
+      'access arguments' => ['administer samlauth'],
+      'file' => 'samlauth.admin.inc',
+      'type' => MENU_NORMAL_ITEM,
+    ],
+    'samlauth/%samlauth/consume' => [
+      'title' => 'SAML Assertion Customer Service',
+      'description' => 'The endpoint to process the SAML response.',
+      'page callback' => 'samlauth_page_acs',
+      'page arguments' => [1],
+      'access callback' => TRUE,
+      'file' => 'samlauth.pages.inc',
+      'type' => MENU_CALLBACK,
+    ],
+    'samlauth/%samlauth/login' => [
+      'title' => 'SAML Login',
+      'description' => 'Sends an AuthnRequest to the Identity Provider.',
+      'page callback' => 'samlauth_page_login',
+      'page arguments' => [1],
+      'access callback' => 'samlauth_menu_access',
+      'access arguments' => ['anonymous user'],
+      'file' => 'samlauth.pages.inc',
+      'type' => MENU_CALLBACK,
+    ],
+    'samlauth/%samlauth/metadata.xml' => [
+      'title' => 'SAML Metadata',
+      'description' => 'The metadata for the Service Provider.',
+      'page callback' => 'samlauth_page_metadata',
+      'page arguments' => [1],
+      'access callback' => TRUE,
+      'file' => 'samlauth.pages.inc',
+      'type' => MENU_CALLBACK,
+    ],
+  ];
+}
+
+/**
+ * Implements hook_permission().
+ */
+function samlauth_permission() {
+  return [
+    'administer samlauth' => [
+      'title' => t('Administer SAML Authenication'),
+    ],
+  ];
+}
+
+/**
+ * Callback: samlauth_menu().
+ *
+ * Wildcard loader for the menu router.
+ *
+ * @param string $idp_machine_name
+ *
+ * @return string|false
+ */
+function samlauth_load($idp_machine_name) {
+  $idp_exists = db_select('samlauth_settings')
+    ->fields('samlauth_settings')
+    ->condition('idp_machine_name', $idp_machine_name)
+    ->execute()
+    ->fetchField();
+
+  if (!$idp_exists) {
+    return FALSE;
+  }
+
+  return $idp_machine_name;
+}
+
+/**
+ * Callback: samlauth_menu().
+ *
+ * Menu access callback for the menu router.
+ *
+ * @param string[] $roles
+ *   Drupal roles to allow access.
+ *
+ * @return bool
+ */
+function samlauth_menu_access() {
+  $roles = func_get_args();
+
+  foreach ($roles as $role_name) {
+    $role = user_role_load_by_name($role_name);
+
+    if ($role && user_has_role($role->rid)) {
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}

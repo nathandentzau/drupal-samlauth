@@ -1,0 +1,14 @@
+{
+    "name": "oomphinc/samlauth",
+    "description": "A SAML 2.0 authentication layer for Drupal 7.",
+    "type": "drupal-module",
+    "require": {
+        "onelogin/php-saml": "^2.10"
+    },
+    "authors": [
+        {
+            "name": "Nathan Dentzau",
+            "email": "nate@oomphinc.com"
+        }
+    ]
+}
