@@ -54,6 +54,22 @@ function samlauth_instance($idp_machine_name) {
 }
 
 /**
+ * Check whether the current user is authenticated through samlauth.
+ *
+ * @return bool
+ */
+function samlauth_is_authenticated() {
+  return isset($_SESSION['samlauth_authenticated']) && $_SESSION['samlauth_authenticated'];
+}
+
+/**
+ * Set the current user's session as authenticated through samlauth.
+ */
+function samlauth_set_authenticated() {
+  $_SESSION['samlauth_authenticated'] = TRUE;
+}
+
+/**
  * Load the private key from the filesystem.
  *
  * @param string $path
@@ -198,6 +214,9 @@ function samlauth_login_register($name_id, $idp_machine_name, array $saml_attrib
 
     return FALSE;
   }
+
+  // Set the user's session as authenticated through samlauth.
+  samlauth_set_authenticated();
 
   // Log user in.
   $form_state['uid'] = $account->uid;
