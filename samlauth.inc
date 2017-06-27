@@ -82,7 +82,7 @@ function samlauth_set_authenticated() {
  */
 function samlauth_load_private_key($path) {
   // If the path is not absolute then prepend the DRUPAL_ROOT to the path.
-  if (strpos('/', $path) !== 0) {
+  if (strpos($path, '/') !== 0) {
     $path = DRUPAL_ROOT . '/' . $path;
   }
 
