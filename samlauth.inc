@@ -195,6 +195,9 @@ function samlauth_login_register($name_id, $idp_machine_name, array $saml_attrib
       return FALSE;
     }
 
+    // Set the account as new!
+    $account->is_new = TRUE;
+
     // Save this user's new account reference in the authmap table.
     user_set_authmaps($account, [
       'authname_samlauth_' . $idp_machine_name => $name_id,
