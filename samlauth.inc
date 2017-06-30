@@ -201,6 +201,7 @@ function samlauth_login_register($name_id, $idp_machine_name, array $saml_attrib
 
   // Log user in.
   $form_state['uid'] = $account->uid;
+  $form_state['samlauth'] = TRUE;
 
   user_login_submit([], $form_state);
 
