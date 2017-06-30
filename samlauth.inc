@@ -289,7 +289,7 @@ function samlauth_settings_onelogin_format(array $settings) {
  */
 function samlauth_settings_map() {
   return [
-    'idp_machine_name' => '',
+    'idp_machine_name' => 'default',
     'sp_name_id_format' => '',
     'sp_x509_certificate' => '',
     'sp_private_key' => '',
