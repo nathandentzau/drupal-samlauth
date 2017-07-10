@@ -73,11 +73,9 @@ function samlauth_permission() {
  * @return string|false
  */
 function samlauth_load($idp_machine_name) {
-  $idp_exists = db_select('samlauth_settings')
-    ->fields('samlauth_settings')
-    ->condition('idp_machine_name', $idp_machine_name)
-    ->execute()
-    ->fetchField();
+  module_load_include('inc', 'samlauth', 'samlauth');
+
+  $idp_exists = !empty(samlauth_settings($idp_machine_name));
 
   if (!$idp_exists) {
     return FALSE;
