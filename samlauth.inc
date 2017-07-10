@@ -251,6 +251,17 @@ function samlauth_login_register($name_id, $idp_machine_name, array $saml_attrib
  * @return array
  */
 function samlauth_settings($idp_machine_name) {
+  // Gather settings set in settings.php
+  $settings = !empty($GLOBALS['conf']['samlauth'])
+    ? $GLOBALS['conf']['samlauth']
+    : NULL;
+
+  // If there are global settings and the IdP machine name is in the global
+  // settings then merge the settings with the default settings array.
+  if ($settings && array_key_exists($idp_machine_name, $settings)) {
+    return samlauth_settings_merge($settings[$idp_machine_name]);
+  }
+
   $result = db_select('samlauth_settings')
     ->fields('samlauth_settings')
     ->condition('idp_machine_name', $idp_machine_name)
