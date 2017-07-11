@@ -32,6 +32,39 @@ function samlauth_entity_id($idp_machine_name) {
 }
 
 /**
+ * Get the RelayState from the query string.
+ *
+ * @return string|NULL
+ *   The RelayState path if the destination passed validation, or NULL if the
+ *   RelayState is not given or if the destination path is malformed.
+ */
+function samlauth_get_relay_state() {
+  if (!isset($_GET['RelayState'])) {
+    return NULL;
+  }
+
+  $relay_state = parse_url($_GET['RelayState']);
+
+  // parse_url() may return FALSE for a malformed URL, if so return NULL before
+  // we start building our result.
+  if (!$relay_state || empty($relay_state['path'])) {
+    return NULL;
+  }
+
+  $result = $relay_state['path'];
+
+  if (isset($relay_state['query'])) {
+    $result .= '?' . $relay_state['query'];
+  }
+
+  if (isset($relay_state['fragment'])) {
+    $result .= '#' . $relay_state['fragment'];
+  }
+
+  return $result;
+}
+
+/**
  * A procedural multiton holding the OneLogin_Saml2_Auth instance.
  *
  * @param string $idp_machine_name
