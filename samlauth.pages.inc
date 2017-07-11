@@ -15,12 +15,14 @@
  * @param string $idp_machine_name
  */
 function samlauth_page_acs($idp_machine_name) {
+  module_load_include('inc', 'samlauth', 'samlauth');
+
   // If the user is logged in already then redirect them away from this page.
   if (user_is_logged_in()) {
-    drupal_goto('<front>');
-  }
+    $destination = samlauth_get_relay_state() ?: '<front>';
 
-  module_load_include('inc', 'samlauth', 'samlauth');
+    drupal_goto($destination);
+  }
 
   $auth = samlauth_instance($idp_machine_name);
 
@@ -48,7 +50,9 @@ function samlauth_page_acs($idp_machine_name) {
     drupal_set_message(t('There was an error processing your request.'), 'error');
   }
 
-  drupal_goto('<front>');
+  $destination = samlauth_get_relay_state() ?: '<front>';
+
+  drupal_goto($destination);
 }
 
 /**
