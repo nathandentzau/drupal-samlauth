@@ -48,6 +48,16 @@ function samlauth_page_acs($idp_machine_name) {
   catch (Exception $e) {
     watchdog('samlauth', $e->getMessage(), [], WATCHDOG_ERROR);
     drupal_set_message(t('There was an error processing your request.'), 'error');
+
+    $redirect_locations = module_invoke_all('samlauth_error_redirect_url');
+
+    if (!empty($redirect_locations)) {
+      // Only get the first redirect location that is found. All others will
+      // be ignored.
+      $redirect_location = reset($redirect_locations);
+
+      drupal_goto($redirect_location);
+    }
   }
 
   $destination = samlauth_get_relay_state() ?: '<front>';

@@ -317,7 +317,7 @@ function samlauth_settings($idp_machine_name) {
  * @return array
  */
 function samlauth_settings_onelogin_format(array $settings) {
-  return [
+  $settings = [
     'strict' => TRUE,
     'sp' => [
       'entityId' => samlauth_entity_id($settings['idp_machine_name']),
@@ -346,6 +346,10 @@ function samlauth_settings_onelogin_format(array $settings) {
       'digestAlgorithm' => 'http://www.w3.org/2001/04/xmlenc#sha256',
     ],
   ];
+
+  drupal_alter('samlauth_settings', $settings);
+
+  return $settings;
 }
 
 /**
