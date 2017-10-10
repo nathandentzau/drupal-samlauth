@@ -17,10 +17,10 @@
 function samlauth_page_acs($idp_machine_name) {
   module_load_include('inc', 'samlauth', 'samlauth');
 
+  $destination = samlauth_get_relay_state() ?: '<front>';
+
   // If the user is logged in already then redirect them away from this page.
   if (user_is_logged_in()) {
-    $destination = samlauth_get_relay_state() ?: '<front>';
-
     drupal_goto($destination);
   }
 
@@ -55,12 +55,9 @@ function samlauth_page_acs($idp_machine_name) {
       // Only get the first redirect location that is found. All others will
       // be ignored.
       $redirect_location = reset($redirect_locations);
-
       drupal_goto($redirect_location);
     }
   }
-
-  $destination = samlauth_get_relay_state() ?: '<front>';
 
   drupal_goto($destination);
 }

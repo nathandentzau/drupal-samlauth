@@ -39,15 +39,11 @@ function samlauth_entity_id($idp_machine_name) {
  *   RelayState is not given or if the destination path is malformed.
  */
 function samlauth_get_relay_state() {
-  if (!isset($_GET['RelayState'])) {
-    return NULL;
-  }
-
-  $relay_state = parse_url($_GET['RelayState']);
+  $relay_state = samlauth_get_relay_state_parameter();
 
   // parse_url() may return FALSE for a malformed URL, if so return NULL before
   // we start building our result.
-  if (!$relay_state || empty($relay_state['path'])) {
+  if (empty($relay_state['path'])) {
     return NULL;
   }
 
@@ -62,6 +58,23 @@ function samlauth_get_relay_state() {
   }
 
   return $result;
+}
+
+/**
+ * Get the RelayState parameter from either GET or POST method.
+ *
+ * @return array|null
+ */
+function samlauth_get_relay_state_parameter() {
+  if (isset($_GET['RelayState'])) {
+    return parse_url($_GET['RelayState']);
+  }
+
+  if (isset($_POST['RelayState'])) {
+    return parse_url($_POST['RelayState']);
+  }
+
+  return NULL;
 }
 
 /**
