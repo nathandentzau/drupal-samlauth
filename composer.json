@@ -3,7 +3,7 @@
     "description": "A SAML 2.0 authentication layer for Drupal 7.",
     "type": "drupal-module",
     "require": {
-        "onelogin/php-saml": "^2.10"
+        "onelogin/php-saml": "^3.3"
     },
     "authors": [
         {

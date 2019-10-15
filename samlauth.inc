@@ -94,7 +94,7 @@ function samlauth_instance($idp_machine_name) {
   $settings = samlauth_settings($idp_machine_name);
   $settings = samlauth_settings_onelogin_format($settings);
 
-  $instance = new OneLogin_Saml2_Auth($settings);
+  $instance = new OneLogin\Saml2\Auth($settings);
 
   return $instance;
 }
@@ -439,15 +439,15 @@ function samlauth_settings_save($idp_machine_name, array $settings) {
  */
 function samlauth_subject_name_id_map() {
   return drupal_map_assoc([
-    OneLogin_Saml2_Constants::NAMEID_EMAIL_ADDRESS,
-    OneLogin_Saml2_Constants::NAMEID_X509_SUBJECT_NAME,
-    OneLogin_Saml2_Constants::NAMEID_WINDOWS_DOMAIN_QUALIFIED_NAME,
-    OneLogin_Saml2_Constants::NAMEID_UNSPECIFIED,
-    OneLogin_Saml2_Constants::NAMEID_KERBEROS,
-    OneLogin_Saml2_Constants::NAMEID_ENTITY,
-    OneLogin_Saml2_Constants::NAMEID_TRANSIENT,
-    OneLogin_Saml2_Constants::NAMEID_PERSISTENT,
-    OneLogin_Saml2_Constants::NAMEID_ENCRYPTED,
+    OneLogin\Saml2\Constants::NAMEID_EMAIL_ADDRESS,
+    OneLogin\Saml2\Constants::NAMEID_X509_SUBJECT_NAME,
+    OneLogin\Saml2\Constants::NAMEID_WINDOWS_DOMAIN_QUALIFIED_NAME,
+    OneLogin\Saml2\Constants::NAMEID_UNSPECIFIED,
+    OneLogin\Saml2\Constants::NAMEID_KERBEROS,
+    OneLogin\Saml2\Constants::NAMEID_ENTITY,
+    OneLogin\Saml2\Constants::NAMEID_TRANSIENT,
+    OneLogin\Saml2\Constants::NAMEID_PERSISTENT,
+    OneLogin\Saml2\Constants::NAMEID_ENCRYPTED,
   ]);
 }
 
