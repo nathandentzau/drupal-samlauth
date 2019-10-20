@@ -78,11 +78,11 @@ function samlauth_get_relay_state_parameter() {
 }
 
 /**
- * A procedural multiton holding the OneLogin_Saml2_Auth instance.
+ * A procedural multiton holding the OneLogin\Saml2\Auth instance.
  *
  * @param string $idp_machine_name
  *
- * @return OneLogin_Saml2_Auth
+ * @return OneLogin\Saml2\Auth
  */
 function samlauth_instance($idp_machine_name) {
   $instance = &drupal_static(__FUNCTION__ . $idp_machine_name);
@@ -322,7 +322,7 @@ function samlauth_settings($idp_machine_name) {
 
 /**
  * Format the Identity Provider settings to be injected into the
- * OneLogin_Saml2_Auth class.
+ * OneLogin\Saml2\Auth class.
  *
  * @param array $settings
  *   SamlAuth Identity Provider settings.
